@@ -24,7 +24,9 @@ class _WebViewWrapperState extends State<WebViewWrapper> {
   void initState() {
     super.initState();
     _controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted) //commented to run this on web
+      ..setJavaScriptMode(
+        JavaScriptMode.unrestricted,
+      ) //commented to run this on web
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
@@ -33,6 +35,12 @@ class _WebViewWrapperState extends State<WebViewWrapper> {
           onPageStarted: (_) => _isLoading.value = true,
           onPageFinished: (_) {
             _isLoading.value = false;
+            _controller.runJavaScript('''
+              // var ytHeader=document.querySelector('ytm-mobile-topbar-renderer'); //inspect theke giye oi tag tar naam khujhe tarpor ei js query ta likhte hobe to remove the header
+              // if(ytHeader) ytHeader.style.display='none';
+              var navBar=document.querySelector('ytm-pivot-bar-renderer'); //inspect theke giye oi tag tar naam khujhe tarpor ei js query ta likhte hobe to remove the navbar
+              if(navBar) navBar.style.display='none';
+            ''');
           },
         ),
       )
@@ -68,6 +76,9 @@ class _WebViewWrapperState extends State<WebViewWrapper> {
       builder: (context, isLoading, child) {
         return FullScreenLoadingOverlay(
           isLoading: isLoading,
+          loadingWidget: CircularProgressIndicator(
+            color: AppColors.youtubePrimary,
+          ),
           child: Scaffold(
             appBar: AppBar(
               leading: IconButton(

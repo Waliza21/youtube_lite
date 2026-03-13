@@ -38,3 +38,22 @@ class AppColors {
 //different different instance create kori jokhn, tokhn different different hashnote create hoy.
 //sharedPreference jokhn use kori tokhn singleton use kori, karon nahole multiple storage use hocche, jar karone memory waste hocche.
 //token akta jaygay save kore rakhte chai obviously, multiple jaygay store korte chai na. tai sqlite, sharedPreference e singleton use hoy.
+
+
+/* 
+class Test{
+
+}
+
+void main(){
+   int value=10;
+   int value2=10;
+   print(value==value2); //true
+   print(value.hashCode==value2.hashCode); //false (value er memory address/hashcode akta, value2 er memory address/hashcode arekta, so not equal)
+ }
+
+output: 116010
+
+
+
+*/
